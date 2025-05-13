@@ -8,15 +8,9 @@ pub struct InstantiateMsg {}
 
 #[cw_serde]
 pub enum ExecuteMsg {
-    ReflectMsg {
-        msgs: Vec<CosmosMsg<KiichainMsg>>,
-    },
-    ReflectSubMsg {
-        msgs: Vec<SubMsg<KiichainMsg>>,
-    },
-    ChangeOwner {
-        owner: String,
-    },
+    ReflectMsg { msgs: Vec<CosmosMsg<KiichainMsg>> },
+    ReflectSubMsg { msgs: Vec<SubMsg<KiichainMsg>> },
+    ChangeOwner { owner: String },
 }
 
 #[cw_serde]

@@ -1,6 +1,7 @@
 use cosmwasm_std::{
-    entry_point, to_json_binary, to_json_vec, ContractResult, CosmosMsg, Deps, DepsMut, Env, MessageInfo,
-    QueryRequest, QueryResponse, Reply, Response, StdError, StdResult, SubMsg, SystemResult,
+    entry_point, to_json_binary, to_json_vec, ContractResult, CosmosMsg, Deps, DepsMut, Env,
+    MessageInfo, QueryRequest, QueryResponse, Reply, Response, StdError, StdResult, SubMsg,
+    SystemResult,
 };
 use token_bindings::{KiichainMsg, KiichainQuery};
 
