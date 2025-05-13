@@ -1,0 +1,38 @@
+[workspace]
+members = ["packages/*", "contracts/*"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/KiiChain/wasmbindings"
+version = "0.1.0"
+
+[profile.release]
+codegen-units = 1
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+panic = 'abort'
+incremental = false
+# Please do not disable these. Doing so will cause overflow checks in
+# all workspace members to stop working. Overflows should be errors.
+overflow-checks = true
+
+[workspace.dependencies]
+cosmwasm-schema = "1.1"
+cosmwasm-std = "1.5.11"
+cosmwasm-storage = "1.1"
+schemars = "0.8"
+itertools = "0.11"
+cw-storage-plus = "0.16"
+anyhow = "1"
+thiserror = "1.0"
+cw2 = "1.0.1"
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+
+# TODO use upstream when PR merged: https://github.com/CosmWasm/cw-multi-test/pull/51
+cw-multi-test = { git = "https://github.com/JakeHartnell/cw-multi-test.git", branch = "bank-supply-support" }
+token-bindings = { path = "./packages/bindings", version = "0.1.0" }

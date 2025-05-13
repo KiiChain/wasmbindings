@@ -1,0 +1,18 @@
+[package]
+name = "token-bindings"
+version = { workspace = true }
+description = "Bindings for CustomMsg and CustomQuery for KiiChain"
+keywords = ["kiichain", "blockchain", "wasm"]
+readme = "../../README.md"
+
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+
+[dependencies]
+cosmwasm-schema = { workspace = true }
+cosmwasm-std = { workspace = true }
+schemars = { workspace = true }
+serde = { workspace = true, default-features = false, features = ["derive"] }
+
+[dev-dependencies]
