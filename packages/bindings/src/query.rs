@@ -6,8 +6,7 @@ use cosmwasm_std::CustomQuery;
 #[cw_serde]
 pub enum KiichainQuery {
     TokenFactory(TokenFactoryQuery),
-    // Future implementation will go here
-    // EVM(EVMQuery),
+    Evm(EVMQuery),
 }
 
 /// TokenFactoryQuery represents a query to the TokenFactory module
@@ -53,6 +52,30 @@ impl TokenFactoryQuery {
 /// Implement the custom query trait for KiichainQuery
 impl CustomQuery for KiichainQuery {}
 
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum EVMQuery {
+    /// Executes a query on the EVM module (eth_call)
+    #[returns(EVMEthCallResponse)]
+    EthCall {
+        /// The address of the contract to call
+        contract: String,
+        /// The data to send to the contract
+        data: String,
+    },
+}
+
+/// EVMQuery implementations
+impl EVMQuery {
+    /// Turn the EVMQuery into a KiichainQuery
+    pub fn into_kiichain_query(self) -> KiichainQuery {
+        KiichainQuery::Evm(self)
+    }
+}
+
+/// Implement the custom query trait for EVMQuery
+impl CustomQuery for EVMQuery {}
+
 /// FullDenomResponse is the full denom query response
 #[cw_serde]
 pub struct FullDenomResponse {
@@ -82,4 +105,10 @@ pub struct DenomsByCreatorResponse {
 #[cw_serde]
 pub struct ParamsResponse {
     pub params: Params,
+}
+
+#[cw_serde]
+pub struct EVMEthCallResponse {
+    /// The result of the call in hex format
+    pub data: String,
 }
