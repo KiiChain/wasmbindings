@@ -7,6 +7,7 @@ use cosmwasm_std::CustomQuery;
 pub enum KiichainQuery {
     TokenFactory(TokenFactoryQuery),
     Evm(EVMQuery),
+    Bech32(Bech32Query),
 }
 
 /// TokenFactoryQuery represents a query to the TokenFactory module
@@ -100,6 +101,36 @@ impl EVMQuery {
 /// Implement the custom query trait for EVMQuery
 impl CustomQuery for EVMQuery {}
 
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum Bech32Query {
+    /// Converts a bech32 address to a hex address
+    #[returns(Bech32ToHexResponse)]
+    Bech32ToHex {
+        /// The bech32 address to convert
+        address: String,
+    },
+    /// Converts a hex address to a bech32 address
+    #[returns(HexToBech32Response)]
+    HexToBech32 {
+        /// The hex address to convert
+        address: String,
+        /// The prefix to use for the conversion
+        prefix: String,
+    },
+}
+
+/// Bech32Query implementations
+impl Bech32Query {
+    /// Turn the EVMQuery into a KiichainQuery
+    pub fn into_kiichain_query(self) -> KiichainQuery {
+        KiichainQuery::Bech32(self)
+    }
+}
+
+/// Implement the custom query trait for Bech32Query
+impl CustomQuery for Bech32Query {}
+
 /// FullDenomResponse is the full denom query response
 #[cw_serde]
 pub struct FullDenomResponse {
@@ -157,4 +188,16 @@ pub struct Erc20BalanceResponse {
 pub struct Erc20AllowanceResponse {
     /// The allowance of the token
     pub allowance: String,
+}
+
+#[cw_serde]
+pub struct Bech32ToHexResponse {
+    /// The hex address
+    pub address: String,
+}
+
+#[cw_serde]
+pub struct HexToBech32Response {
+    /// The bech32 address
+    pub address: String,
 }
