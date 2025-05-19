@@ -63,6 +63,30 @@ pub enum EVMQuery {
         /// The data to send to the contract
         data: String,
     },
+    /// Fetch the ERC20 information for a given address
+    #[returns(Erc20InformationResponse)]
+    Erc20Information {
+        /// The address of the contract to call
+        contract: String,
+    },
+    /// Fetch the ERC20 balance for a given address
+    #[returns(Erc20BalanceResponse)]
+    Erc20Balance {
+        /// The address of the contract to call
+        contract: String,
+        /// The address to check the balance for
+        address: String,
+    },
+    /// Fetch the ERC20 allowance for a given address
+    #[returns(Erc20AllowanceResponse)]
+    Erc20Allowance {
+        /// The address of the contract to call
+        contract: String,
+        /// The address to check the allowance for
+        owner: String,
+        /// The address to check the allowance for
+        spender: String,
+    },
 }
 
 /// EVMQuery implementations
@@ -111,4 +135,26 @@ pub struct ParamsResponse {
 pub struct EVMEthCallResponse {
     /// The result of the call in hex format
     pub data: String,
+}
+
+#[cw_serde]
+pub struct Erc20InformationResponse {
+    /// The name of the token
+    pub name: String,
+    /// The symbol of the token
+    pub symbol: String,
+    /// The number of decimals of the token
+    pub decimals: u8,
+}
+
+#[cw_serde]
+pub struct Erc20BalanceResponse {
+    /// The balance of the token
+    pub balance: String,
+}
+
+#[cw_serde]
+pub struct Erc20AllowanceResponse {
+    /// The allowance of the token
+    pub allowance: String,
 }
