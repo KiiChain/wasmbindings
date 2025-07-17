@@ -99,3 +99,7 @@ And in your contract code:
 ```rust
 use token_bindings::{KiichainMsg, KiichainQuery};
 ```
+---
+## 📚 FAQ
+
+Have questions? Check out the [FAQ](docs/FAQ.md) for common answers and explanations.
